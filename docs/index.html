@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>План отдыха: Горный Алтай · 04–11 сентября</title>
+<style>
+  :root{
+    --bg:#12100d; --card:#1d1915; --card2:#262019; --text:#f0e9df; --muted:#a89b8a;
+    --amber:#e8a33d; --teal:#5fb3a1; --red:#d9705f; --green:#7fb069; --line:#3a322a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--text);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+  header{text-align:center;padding:56px 20px 30px;background:linear-gradient(180deg,#1d1710 0%,#12100d 100%)}
+  header .kicker{letter-spacing:.18em;text-transform:uppercase;font-size:12px;color:var(--amber);margin-bottom:10px}
+  h1{font-size:clamp(30px,6vw,46px);font-weight:700;margin-bottom:8px}
+  header .dates{color:var(--muted);font-size:18px}
+  .badge{display:inline-block;background:var(--card2);border:1px solid var(--line);border-radius:999px;padding:4px 14px;margin:4px 4px 0;font-size:13px;color:var(--text)}
+  h2{font-size:22px;margin:48px 0 18px;display:flex;align-items:center;gap:10px}
+  h2 .n{color:var(--amber);font-size:14px;letter-spacing:.1em}
+  h3{font-size:17px;margin:26px 0 10px;color:var(--amber)}
+  /* day timeline */
+  .day{display:flex;gap:16px;margin-bottom:14px}
+  .day .date{flex:0 0 118px;text-align:right;padding-top:14px}
+  .day .date .d{font-weight:700;color:var(--amber)}
+  .day .date .dd{font-size:12px;color:var(--muted)}
+  .day .card{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+  .day .card b{color:var(--amber)}
+  .day .card .chill{color:var(--muted);font-size:14px}
+  .day .card .module-tag{display:inline-block;background:#2c2f1e;color:var(--green);border:1px solid #46512e;font-size:12px;border-radius:6px;padding:1px 8px;margin-right:8px}
+  .tag-flight{background:#241b1b;color:var(--red);border-color:#5e3a33}
+  /* modules */
+  .mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;display:flex;gap:14px;align-items:flex-start}
+  .mod input{width:20px;height:20px;margin-top:4px;accent-color:var(--amber);flex:0 0 auto;cursor:pointer}
+  .mod .name{font-weight:600;font-size:16px}
+  .mod .name .eff{font-size:13px;color:var(--muted);font-weight:400}
+  .mod p{color:var(--muted);font-size:14px;margin-top:4px}
+  .mod .price{color:var(--amber);font-weight:700;white-space:nowrap}
+  .mod .breakdown{margin-top:10px;width:100%}
+  .sum{position:sticky;bottom:0;background:#171310ee;backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:15px}
+  .sum b{color:var(--amber);font-size:19px}
+  .sum .hint{color:var(--muted);font-size:12px}
+  /* tables */
+  table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card);border-radius:14px;overflow:hidden;margin:12px 0}
+  th{background:var(--card2);color:var(--amber);text-align:left;padding:10px 14px;font-weight:600;border-bottom:1px solid var(--line)}
+  td{padding:9px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  tr:last-child td{border-bottom:none}
+  td.ok{color:var(--green);white-space:nowrap}
+  td.no{color:var(--red);white-space:nowrap}
+  td.warn{color:var(--amber);white-space:nowrap}
+  td.price{color:var(--amber);font-weight:600;white-space:nowrap}
+  /* city */
+  .city{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .city .c{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .city .c b{display:block;margin-bottom:4px}
+  .city .c span{color:var(--muted);font-size:14px}
+  .free{color:var(--green)!important;font-size:12px!important;display:block;margin-top:6px}
+  ul.plain{list-style:none}
+  ul.plain li{padding:8px 0;border-bottom:1px dashed var(--line);display:flex;justify-content:space-between;gap:12px}
+  ul.plain li:last-child{border-bottom:none}
+  ul.plain .l{color:var(--muted)}
+  .note{background:var(--card2);border-left:3px solid var(--amber);border-radius:8px;padding:12px 16px;color:var(--muted);font-size:14px;margin-top:16px}
+  .note b{color:var(--text)}
+  footer{text-align:center;color:var(--muted);font-size:13px;margin-top:60px}
+  footer a{color:var(--amber);text-decoration:none}
+  @media(max-width:640px){.day{flex-direction:column;gap:6px}.day .date{text-align:left;padding-top:0}td,th{padding:7px 9px}table{font-size:13px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker">Рабочий план · для нас двоих</div>
+  <h1>🏔️ Горный Алтай</h1>
+  <div class="dates">4 – 11 сентября · 6 ночей · двое</div>
+  <div style="margin-top:16px">
+    <span class="badge">✈️ билеты куплены · 55 420 ₽</span>
+    <span class="badge">🎒 ручная кладь 10 кг</span>
+    <span class="badge">🚙 машина 07–10.09</span>
+    <span class="badge">💰 потолок 140–150k</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+<h2><span class="n">01</span> День за днём</h2>
+
+<div class="day"><div class="date"><div class="d">Пт · 04.09</div></div><div class="card"><b>Вечером летим</b> — рейс S7 в 22:50, прилёт 05.09 в 07:10 по местному времени ✈️ <span class="module-tag tag-flight">ночной перелёт</span></div></div>
+<div class="day"><div class="date"><div class="d">Сб · 05.09</div><div class="dd">день 1</div></div><div class="card"><b>Утром на Алтае 🌄</b> — такси до жилья (~500 ₽), заселение, отдых. Вечером набережная Катуни. <span class="chill">чилл-день</span></div></div>
+<div class="day"><div class="date"><div class="d">Вс · 06.09</div><div class="dd">день 2</div></div><div class="card"><b>Ничего не делаем</b> — рынок, кафе, баня. Манжерок при желании на такси (~1 000 ₽). <span class="chill">чилл-день</span></div></div>
+<div class="day"><div class="date"><div class="d">Пн · 07.09</div><div class="dd">день 3</div></div><div class="card"><b>Первая вылазка 🚙</b> — утром забираем машину, едем по модулю №1 (Чемал / пещеры / водопад). <span class="module-tag">модуль №1</span></div></div>
+<div class="day"><div class="date"><div class="d">Вт · 08.09</div><div class="dd">день 4</div></div><div class="card"><b>Снова чилл</b> — гора Тугая, музей с «Принцессой Укокой», баня. Запасной день на модуль №1. <span class="chill">чилл-день</span></div></div>
+<div class="day"><div class="date"><div class="d">Ср · 09.09</div><div class="dd">день 5</div></div><div class="card"><b>Большое приключение</b> — Алтайский Марс с ночёвкой в Акташе. Или красивый однодневный маршрут. <span class="module-tag">модуль №2</span></div></div>
+<div class="day"><div class="date"><div class="d">Чт · 10.09</div><div class="dd">день 6</div></div><div class="card"><b>Возвращаемся на базу</b> — сдача машины вечером, сувениры, последние манты. <span class="chill">чилл-день</span></div></div>
+<div class="day"><div class="date"><div class="d">Пт · 11.09</div></div><div class="card"><b>Утром домой</b> — такси в аэропорт, рейс S7 в 08:15 🏠</div></div>
+
+<h2><span class="n">02</span> Модули (добавки к базе)</h2>
+<p style="color:var(--muted);margin-bottom:14px">Опции, а не обязательная программа. Отмечай — и смотри сумму внизу. Машина в цены модулей не входит — она уже в базе.</p>
+
+<div class="mod">
+  <input type="checkbox" data-price="1500">
+  <div style="flex:1">
+    <div class="name">Тавдинские пещеры <span class="eff">· полдня · 🟢 легко</span></div>
+    <p>Скалы с 30 пещерами, оборудованная тропа. 50 км. Вход 350–500 ₽/чел + бензин ~500 ₽.</p>
+  </div>
+  <div class="price">≈ 1 500 ₽</div>
+</div>
+
+<div class="mod">
+  <input type="checkbox" data-price="1500">
+  <div style="flex:1">
+    <div class="name">Камышлинский водопад <span class="eff">· день · 🟡 средне</span></div>
+    <p>Водопад 12 м + «Долина духов». Вход 450 ₽/чел. Совмещается с пещерами — один день на оба. Экскурсия с трансфером ~7 600 ₽.</p>
+  </div>
+  <div class="price">≈ 1 500 ₽</div>
+</div>
+
+<div class="mod">
+  <input type="checkbox" data-price="2000">
+  <div style="flex:1">
+    <div class="name">Чемал: Патмос и Козья тропа <span class="eff">· день · 🟡 средне</span></div>
+    <p>Остров с храмом, тропа над Катунью, старая ГЭС. 100 км. Бензин ~1 000 ₽ + входы ~400 ₽/чел. Экскурсия 8–10k.</p>
+  </div>
+  <div class="price">≈ 2 000 ₽</div>
+</div>
+
+<div class="mod">
+  <input type="checkbox" data-price="4900">
+  <div style="flex:1">
+    <div class="name">Манжерок: канатка на гору <span class="eff">· полдня · 🟢 легко</span></div>
+    <p>Канатка на Малая Синюху — 2 300 ₽/чел (2026) + бензин ~300 ₽. Дороговато для разминки.</p>
+  </div>
+  <div class="price">≈ 4 900 ₽</div>
+</div>
+
+<div class="mod">
+  <input type="checkbox" data-price="13500">
+  <div style="flex:1">
+    <div class="name">Алтайский Марс 🌋 <span class="eff">· 2 дня, ночёвка в Акташе · 🟡 средне</span></div>
+    <p>Дорога по Чуйскому тракту: слияние Чуи и Катуни, перевал Чике-Таман, красные марсианские долины. Выезд утром 09.09, возврат вечером 10.09.</p>
+    <table class="breakdown">
+      <tr><th>Статья</th><th>Сумма</th><th>Почему</th></tr>
+      <tr><td>Бензин</td><td class="price">~4 800 ₽</td><td>760 км туда-обратно × 11 л/100 км × ~58 ₽/л</td></tr>
+      <tr><td>Ночёвка в Акташе</td><td class="price">4 900–6 300 ₽</td><td>«Акташ Oasis» ~4 860 ₽; гостевой дом от 3 500 ₽</td></tr>
+      <tr><td>Еда за 2 дня</td><td class="price">~3 000 ₽</td><td>Два дня вместо одного</td></tr>
+      <tr><td><b>Итого</b></td><td class="price"><b>12 700–14 100 ₽</b></td><td>Машина не входит — уже в базе</td></tr>
+    </table>
+    <p style="margin-top:8px"><b style="color:var(--green)">Как удешевить:</b> ночёвка в гостевом доме → ~11.5–12k · облегчённая версия за день (слияние Чуи/Катуни + Чике-Таман, без ночёвки) → ~4–5k · или 13–14k = все остальные модули вместе взятые</p>
+  </div>
+  <div class="price">≈ 13–14 000 ₽</div>
+</div>
+
+<div class="sum">
+  <div><span class="hint">база ≈ 120–125 000 ₽ + выбранное</span><br>добавки:</div>
+  <b id="total">0 ₽</b>
+</div>
+
+<h2><span class="n">03</span> Городские дни</h2>
+<div class="city">
+  <div class="c"><b>🌊 Набережная Катуни</b><span>Главная прогулочная линия города.</span><span class="free">бесплатно</span></div>
+  <div class="c"><b>⛰️ Гора Тугая</b><span>Смотровая: пешком 40–60 мин или канатка.</span><span class="free">бесплатно / ~400 ₽</span></div>
+  <div class="c"><b>🏛️ Музей Анохина</b><span>Мумия «Принцесса Укока». Лучший план на дождь.</span><span class="free">300–400 ₽</span></div>
+  <div class="c"><b>🧺 Центральный рынок</b><span>Мёд, травы, кедровые орехи, сувениры.</span><span class="free">бесплатно 😉</span></div>
+  <div class="c"><b>🛁 Баня</b><span>Минимум два раза за поездку.</span><span class="free">1 500–3 000 ₽/час</span></div>
+  <div class="c"><b>🥟 Алтайская кухня</b><span>Манты, чегень, казы, травяные чаи.</span><span class="free">в бюджете на еду</span></div>
+  <div class="c"><b>🏺 Улалинская стоянка</b><span>Палеолитическая стоянка в черте города.</span><span class="free">бесплатно</span></div>
+  <div class="c"><b>🎭 Драмтеатр</b><span>Вечерний вариант, по афише.</span><span class="free">400–800 ₽</span></div>
+</div>
+
+<h2><span class="n">04</span> Бюджет</h2>
+<h3>База (без модулей)</h3>
+<table>
+  <tr><th>Статья</th><th>Мин</th><th>Макс</th><th>Комментарий</th></tr>
+  <tr><td>Перелёт S7, ручная кладь 10 кг</td><td class="price">55 420 ₽</td><td class="price">55 420 ₽</td><td>Куплено: 13 855 ₽/чел за плечо, багаж не включён</td></tr>
+  <tr><td>Жильё, 6 ночей</td><td class="price">18 600 ₽</td><td class="price">27 600 ₽</td><td>3 100–4 600 ₽/ночь; цель 4 500–5 000 ₽/ночь</td></tr>
+  <tr><td>Авто, 4 суток кроссовер</td><td class="price">15 200 ₽</td><td class="price">17 000 ₽</td><td>07–10.09, 3 800–4 250 ₽/сут</td></tr>
+  <tr><td>Такси в дни без авто</td><td class="price">1 500 ₽</td><td class="price">2 500 ₽</td><td>Аэропорт туда/обратно + город</td></tr>
+  <tr><td>Бензин</td><td class="price">5 000 ₽</td><td class="price">7 000 ₽</td><td>~58 ₽/л, 11 л/100 км</td></tr>
+  <tr><td>Еда и прочее</td><td class="price">18 000 ₽</td><td class="price">25 000 ₽</td><td>3 000 ₽/день + баня 1–2 раза</td></tr>
+  <tr><td><b>База итого</b></td><td class="price"><b>113 720 ₽</b></td><td class="price"><b>134 520 ₽</b></td><td>Реалистично ~120–125k</td></tr>
+</table>
+
+<h3>Сборки под потолок 140–150k</h3>
+<table>
+  <tr><th>Сборка</th><th>Итого (мин)</th><th>В потолок?</th></tr>
+  <tr><td>Чистый чилл</td><td class="price">114 000–135 000 ₽</td><td class="ok">✅ с запасом</td></tr>
+  <tr><td>+ Тавдинские / водопад / Чемал самост.</td><td class="price">115 500–137 000 ₽</td><td class="ok">✅</td></tr>
+  <tr><td>+ Манжерок (A)</td><td class="price">118 600–139 400 ₽</td><td class="warn">✅ впритык</td></tr>
+  <tr><td>+ Алтайский Марс (E)</td><td class="price">127 200–148 000 ₽</td><td class="ok">✅ влезает</td></tr>
+  <tr><td>База + E + ещё один лёгкий модуль</td><td class="price">128 700–149 500 ₽</td><td class="warn">⚠️ на грани</td></tr>
+  <tr><td>База + Манжерок + E</td><td class="price">132 100–154 000 ₽</td><td class="no">❌ максимум за</td></tr>
+</table>
+<div class="note"><b>Цель:</b> база ~120–125k + Марс = ~135–140k. Багаж на перелёте не покупали — ручная кладь 10 кг/чел.</div>
+
+<h2><span class="n">05</span> Жильё: кандидаты</h2>
+<table>
+  <tr><th>Вариант</th><th>Где</th><th>Цена/ночь</th><th>Рейтинг</th><th>Комментарий</th></tr>
+  <tr><td>Art Hostel</td><td>центр</td><td class="price">от 2 678 ₽</td><td>4.7</td><td>Самый дешёвый; проверить приватность номеров</td></tr>
+  <tr><td>Гостевой дом «Удачный»</td><td>город</td><td class="price">от 3 100 ₽</td><td>—</td><td>Бюджетный вариант</td></tr>
+  <tr><td>«1 на Алтае»</td><td>Майма, 3 км</td><td class="price">от 3 650 ₽</td><td>4.3</td><td>Парковка, карты; близко к аэропорту</td></tr>
+  <tr><td>Отель «Горный»</td><td>центр, Коммунистический 125</td><td class="price">от 4 500 ₽</td><td>4.2</td><td>Бесплатная отмена, кондиционер</td></tr>
+  <tr><td>Мини-отель «Игман»</td><td>центр</td><td class="price">~4 500–5 500 ₽</td><td>4.6</td><td>Уточнить цену</td></tr>
+  <tr><td>Гостиница «Горный Алтай»</td><td>ул. Эркемена Палкина 5</td><td class="price">от 10 500 ₽</td><td>4.3</td><td>Топ; только без модулей</td></tr>
+  <tr><td>Суточно.ру, 21 гостевой дом</td><td>весь город</td><td class="price">3 000–7 800 ₽</td><td>9.5–10</td><td>Прямые хозяева; смотреть отопление и парковку</td></tr>
+</table>
+<div class="note"><b>При брони проверять:</b> отопление (ночи +5 °C), парковка, ранний заезд 05.09 в ~07:30 — критично после ночного рейса.</div>
+
+<h2><span class="n">06</span> Перелёт · аренда · мелочи</h2>
+<h3>✈️ Перелёт (куплено)</h3>
+<ul class="plain">
+  <li><span>Ссылка на билеты</span><span class="l">avs.io/MQMN</span></li>
+  <li><span>Цена на двоих туда-обратно, ручная кладь 10 кг</span><span class="l">55 420 ₽</span></li>
+  <li><span>Туда: 04.09 22:50 DME → 05.09 07:10 RGK</span><span class="l">S7, 4 ч 20 м, прямой</span></li>
+  <li><span>Обратно: 11.09 08:15 RGK → Москва</span><span class="l">S7, прямой</span></li>
+  <li><span>С багажом 23 кг было бы</span><span class="l">21 625 ₽/чел за плечо</span></li>
+</ul>
+
+<h3>🚙 Аренда авто (4 суток, не 7)</h3>
+<ul class="plain">
+  <li><span>Срок: 07.09 утро → 10.09 вечер, выдача в городе</span><span class="l">дешевле, чем в аэропорту</span></li>
+  <li><span>Кроссовер: CARS&GO от 4 250 · Avito Qashqai 4WD от 3 800 · arendaavto от 4 000 ₽/сут</span><span class="l">15 200–17 000 ₽</span></li>
+  <li><span>Критично: безлимит или лимит от 350 км/сут — Марс = 760 км за 2 дня</span><span class="l">иначе 7–15 ₽/км сверх</span></li>
+  <li><span>Если модулей не будет — машину можно не брать вовсе</span><span class="l">экскурсии с трансфером</span></li>
+</ul>
+
+<h3>⚠️ Риски</h3>
+<ul class="plain">
+  <li><span>🌧️ Сентябрь: +10…+20° днём, +5° ночью, дожди — тёплые вещи в ручную кладь плотно</span><span class="l">10 кг/чел</span></li>
+  <li><span>🏠 Жильё без отопления = брак</span><span class="l">не бронировать</span></li>
+  <li><span>🚙 Прокатные авто на сентябрь разбирают — бронировать за 2–3 недели</span><span class="l">сейчас в самый раз</span></li>
+  <li><span>🗓️ Модули решаются на месте: погода вечером → едем утром. Запасной день 08.09</span><span class="l">план не ломается</span></li>
+  <li><span>📍 Дальние точки (Кош-Агач, Улаган) не пытаться впихнуть</span><span class="l">6 ночей мало</span></li>
+</ul>
+
+<footer>Рабочий план · <a href="altai-plan.html">версия для неё 💛</a> · 04–11.09.2026</footer>
+</div>
+
+<script>
+  const boxes=[...document.querySelectorAll('.mod input')];
+  const total=document.getElementById('total');
+  const fmt=n=>n.toLocaleString('ru-RU')+' ₽';
+  const upd=()=>{const s=boxes.reduce((a,b)=>a+(b.checked?+b.dataset.price:0),0);total.textContent=fmt(s)};
+  boxes.forEach(b=>b.addEventListener('change',upd));
+</script>
+</body>
+</html>
