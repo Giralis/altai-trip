@@ -48,6 +48,9 @@
   ul.plain .l{color:var(--muted)}
   .note{background:var(--card2);border-left:3px solid var(--amber);border-radius:8px;padding:12px 16px;color:var(--muted);font-size:14px;margin-top:16px}
   .note b{color:var(--text)}
+  .addrow{display:flex;gap:8px;margin:14px 0 6px}
+  .addrow input{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit}
+  .addrow button{background:var(--amber);color:#1a1206;border:none;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
   .resto{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:18px;margin-bottom:12px}
   .resto .name{font-weight:600;color:var(--amber)}
   .resto p{color:var(--muted);font-size:14px;margin-top:4px}
@@ -98,11 +101,11 @@
   <p>Алтайская кухня, Комсомольская 18, Горно-Алтайск · <a href="https://yandex.ru/maps/-/CTg~jBl7" style="color:var(--amber)">на карте</a></p>
 </div>
 <div id="fromHer"></div>
-<div class="resto">
-  <div class="name">➕ Сюда добавим найденное</div>
-  <p>Кидай названия ресторанов, которые найдёшь — впишу сюда с ценами и пометками.</p>
-  <div class="empty">Пока пусто: ждём твои находки</div>
+<div class="addrow">
+  <input id="restoName" placeholder="Ресторан, который нашли… 💛">
+  <button onclick="addResto()">Добавить</button>
 </div>
+<p style="color:var(--muted);font-size:13px">Добавленные сохраняются в этом браузере; по ссылке вида <span style="color:var(--amber)">…index.html#restos=Название|Название</span> список приедет на любое устройство.</p>
 
 <h2><span class="n">03</span> Городские дни</h2>
 <div class="city">
@@ -140,23 +143,35 @@
   <li><span>📍 Дальние точки (Кош-Агач, Улаган) не пытаться впихнуть</span><span class="l">6 ночей мало</span></li>
 </ul>
 
-<footer>Утверждённый план · <a href="altai-plan.html">версия для неё 💛</a> · 04–11.09.2026</footer>
+<footer>Наш план · 04–11.09.2026</footer>
 </div>
 
 <script>
 (function(){
   const KEY='altai_restos';
   const el=document.getElementById('fromHer');
+  const input=document.getElementById('restoName');
   const esc=s=>s.replace(/[<>&"]/g,'');
-  const names=[];
-  try{names.push(...JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
-  const m=location.hash.match(/restos=([^&]+)/);
-  if(m){try{names.push(...decodeURIComponent(m[1]).split('|'))}catch(e){}}
-  const uniq=[...new Set(names.map(s=>s.trim()).filter(Boolean))];
-  if(uniq.length){
-    el.innerHTML='<h3 style="margin:26px 0 10px;color:var(--teal)">💛 Добавленные ей</h3>'+
-      uniq.map(n=>'<div class="resto"><div class="name">🍽️ '+esc(n)+'</div><p>От неё — ждёт проверки и цены</p></div>').join('');
+  function collect(){
+    const names=[];
+    try{names.push(...JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+    const m=location.hash.match(/restos=([^&]+)/);
+    if(m){try{names.push(...decodeURIComponent(m[1]).split('|'))}catch(e){}}
+    return [...new Set(names.map(s=>s.trim()).filter(Boolean))];
   }
+  function render(){
+    const uniq=collect();
+    el.innerHTML=uniq.length
+      ? '<h3 style="margin:26px 0 10px;color:var(--teal)">💛 Добавленные</h3>'+
+        uniq.map(n=>'<div class="resto"><div class="name">🍽️ '+esc(n)+'</div><p>Ждёт проверки и цены</p></div>').join('')
+      : '<div class="resto"><div class="name">➕ Пока пусто</div><p>Добавь ресторан в поле выше — появится здесь</p></div>';
+  }
+  window.addResto=function(){
+    const n=input.value.trim(); if(!n)return;
+    const l=[]; try{l.push(...JSON.parse(localStorage.getItem(KEY)||'[]'))}catch(e){}
+    l.push(n); localStorage.setItem(KEY,JSON.stringify(l)); input.value=''; render();
+  };
+  render();
 })();
 </script>
 </body>
