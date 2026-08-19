@@ -51,6 +51,10 @@
   ul.plain li:last-child{border-bottom:none}
   ul.plain .l{color:var(--muted)}
   .note{background:var(--card2);border-left:3px solid var(--amber);border-radius:8px;padding:12px 16px;color:var(--muted);font-size:14px;margin-top:16px}
+  .addrow{display:flex;gap:8px;margin:14px 0 6px}
+  .addrow input{flex:1;background:var(--card2);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:10px 14px;font-size:14px;font-family:inherit}
+  .addrow button,.sharebtn{background:var(--amber);color:#1a1206;border:none;border-radius:10px;padding:10px 16px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+  .sharebtn{background:var(--card2);color:var(--text);border:1px solid var(--line);margin-top:8px}
   footer{text-align:center;color:var(--muted);font-size:13px;margin-top:60px}
   @media(max-width:640px){.day{flex-direction:column;gap:6px}.day .date{text-align:left;padding-top:0}}
 </style>
@@ -88,6 +92,13 @@
   <div class="c"><b>«Типография» — вечер 07.09</b><span>Ужин после терм, Коммунистический 35.</span><span class="free">в плане 💛</span></div>
   <div class="c"><b>«Рерих» — вечер 10.09</b><span>Прощальный ужин перед отъездом.</span><span class="free">в плане 💛</span></div>
 </div>
+<div class="city" id="herList"></div>
+<div class="addrow">
+  <input id="restoName" placeholder="Ресторан, который я нашла… 💛">
+  <button onclick="addResto()">Добавить</button>
+</div>
+<button class="sharebtn" onclick="shareRestos()">Поделиться списком с Вовой 💌</button>
+<span id="shareHint" style="color:var(--green);font-size:13px;margin-left:10px"></span>
 
 <h2><span class="n">03</span> Городские дни</h2>
 <div class="city">
@@ -112,5 +123,29 @@
 
 <footer>Составлено с любовью к горам и друг к другу · 04–11.09.2026</footer>
 </div>
+
+<script>
+(function(){
+  const KEY='altai_restos';
+  const listEl=document.getElementById('herList');
+  const input=document.getElementById('restoName');
+  const esc=s=>s.replace(/[<>&"]/g,'');
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return[]}}
+  function save(l){localStorage.setItem(KEY,JSON.stringify(l))}
+  function render(){
+    listEl.innerHTML=load().map(n=>'<div class="c"><b>'+esc(n)+'</b><span>нашла и добавила 💛</span><span class="free">в копилке</span></div>').join('');
+  }
+  window.addResto=function(){
+    const n=input.value.trim(); if(!n)return;
+    const l=load(); l.push(n); save(l); input.value=''; render();
+  };
+  window.shareRestos=function(){
+    const l=load(); if(!l.length){alert('Сначала добавь хотя бы один ресторан 💛');return}
+    const url=location.origin+'/altai-trip/index.html#restos='+encodeURIComponent(l.join('|'));
+    navigator.clipboard.writeText(url).then(()=>{document.getElementById('shareHint').textContent='Ссылка скопирована — отправь её Вове 💌'});
+  };
+  render();
+})();
+</script>
 </body>
 </html>
